@@ -19,6 +19,7 @@ const int mqttPort = 1883;
 extern WiFiClient espClient;
 extern PubSubClient client;
 
+
 // UART 
 #define RXD1 44
 #define TXD1 43

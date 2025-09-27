@@ -16,11 +16,12 @@
 #define IN3_2 6
 #define IN4_2 5 
 
-const int freq = 1000;     
-const int resolution = 8;  
-const int MOTOR_SPEED = 150; 
+// Khai báo hằng (declaration) - dùng extern để tránh multiple definition
+extern const int FREQ;
+extern const int RESOLUTION;
+extern const int MOTOR_SPEED;
 
-
+// Prototypes
 void initRobot();
 void motorSpin(int v1, int v2, int v3, int v4);
 void moveForward(int speed);

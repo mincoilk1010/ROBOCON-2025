@@ -1,6 +1,11 @@
 #include <Arduino.h>
 #include "robot.h"
- 
+// định nghĩa hằng (definition) chỉ 1 lần trong project
+
+const int freq = 1000;     
+const int resolution = 8;  
+const int MOTOR_SPEED = 150; 
+
 void motorSpin(int v1, int v2, int v3, int v4) {
   // Động cơ 1 - Bánh trước trái
   digitalWrite(IN1_1, v1 >= 0 ? LOW : HIGH);
