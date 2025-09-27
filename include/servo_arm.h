@@ -21,4 +21,4 @@ void handleCommandServo(char cmd);
 void takeTheBall();
 void throwTheBall();
 void smoothMoveToAngle(int id, int target);
-void smoothMoveToAngles(int targetAngles[], int numServos)
+void smoothMoveToAngles(int targetAngles[], int numServos);

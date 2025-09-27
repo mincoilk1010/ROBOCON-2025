@@ -17,9 +17,9 @@
 #define IN4_2 5 
 
 // Khai báo hằng (declaration) - dùng extern để tránh multiple definition
-extern const int FREQ;
-extern const int RESOLUTION;
-extern const int MOTOR_SPEED;
+const int freq=1000;
+const int resolution=8;
+const int MOTOR_SPEED=200;
 
 // Prototypes
 void initRobot();
