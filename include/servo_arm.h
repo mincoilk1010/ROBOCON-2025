@@ -12,13 +12,14 @@ extern Servo servo1;
 extern Servo servo2;
 extern Servo servo3;
 
-void initServo();
+void updateArm(int angleUpdate, int id);
+void smoothMoveToAngle(int id, int targetAngle);
+void smoothMoveToAngles(int targetAngles[], int numServos);
+void takeTheBall();
+void throwTheBall();
 void setDefaultArm();
-void updateArm(int a, int id);
+//
 void servoUp(int id);
 void servoDown(int id);
 void handleCommandServo(char cmd);
-void takeTheBall();
-void throwTheBall();
-void smoothMoveToAngle(int id, int target);
-void smoothMoveToAngles(int targetAngles[], int numServos);
+void initServo();

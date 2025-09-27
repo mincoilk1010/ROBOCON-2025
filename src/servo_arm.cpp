@@ -2,7 +2,7 @@
 #include <Adafruit_PWMServoDriver.h>
 #include "robot.h"
 
-
+Adafruit_PWMServoDriver pwm = Adafruit_PWMServoDriver();
 #define SDA_PIN 6
 #define SCL_PIN 7
 #define SERVO_MIN 150
@@ -21,14 +21,8 @@ int servoMoveSpeed = 20;
 int defaultAngles[3] = {0, 80, 120};
 int grabAngles[3]    = {0, 110, 125};
 int releaseAngles[3] = {90, 110, 145};
-
-Adafruit_PWMServoDriver pwm = Adafruit_PWMServoDriver();
-
-uint16_t angleToPulse(int angle) {
-    // 0° -> 150, 180° -> 600 (tùy servo, có thể tinh chỉnh)
-    return map(angle, 0, 180, 150, 600);
-}
-
+//
+// ==================== HÀM ĐIỀU KHIỂN SERVO ====================
 void updateArm(int angleUpdate, int id) {
   if (angleUpdate < 0) angleUpdate = 0;
   if (angleUpdate > 180) angleUpdate = 180;
@@ -96,9 +90,8 @@ void setDefaultArm() { Serial.println("Set default arm"); smoothMoveToAngles(def
 void servoUp(int id) { smoothMoveToAngle(id, (id==1?angle1:(id==2?angle2:angle3)) + stepAngle); }
 void servoDown(int id) { smoothMoveToAngle(id, (id==1?angle1:(id==2?angle2:angle3)) - stepAngle); }
 
-
-void handleCommandServo(char cmd){
-    switch(cmd){
+void handleCommandServo(char cmd) {
+  switch(cmd) {
     case 'Q': servoUp(1); break;
     case 'A': servoDown(1); break;
     case 'W': servoUp(2); break;
@@ -107,10 +100,14 @@ void handleCommandServo(char cmd){
     case 'D': servoDown(3); break;
     case 'Z': takeTheBall(); break;
     case 'N': throwTheBall(); break;
-    default : break;
+    case 'P': setDefaultArm(); break;
+    case 'T': servoMoveSpeed = max(5, servoMoveSpeed - 5); break;
+    case 'Y': servoMoveSpeed = min(100, servoMoveSpeed + 5); break;
+    default: break;
   }
-} 
+}
 
+// ==================== HÀM KHỞI TẠO ====================
 void initServo() {
   Wire.begin(SDA_PIN, SCL_PIN);
   pwm.begin();

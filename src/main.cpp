@@ -5,12 +5,12 @@
 #include "robot.h"
 #include "config.h"
 #include "magnet.h"
-
+/*
 // NimBLEServer*       pServer   = nullptr;
 // NimBLEService*      pService  = nullptr;
 // NimBLECharacteristic* pChar   = nullptr;
-
-
+*/
+/*
 // class MyCallbacks : public BLECharacteristicCallbacks {
 //   void onWrite(BLECharacteristic *pCharacteristic) {
 //     std::string value = pCharacteristic->getValue();
@@ -20,6 +20,7 @@
 //     }
 //   }
 // };
+*/
 
 WiFiClient espClient;
 PubSubClient client(espClient);
@@ -34,6 +35,7 @@ void mqttCallback(char* topic, byte* message, unsigned int length) {
   if (String(topic) == "robot/cmd") {
     if (msg.length() > 0) {
       handleCommandServo(msg[0]);
+      handleCommandMotor(msg[0]);
     }
   }
 }
@@ -56,6 +58,7 @@ void reconnect() {
 void setup(){
 
   Serial.begin(115200); 
+  /*
   //Serial1.begin(115200, SERIAL_8N1, RXD1, TXD1);
 
 //BLE setup
@@ -74,7 +77,7 @@ void setup(){
   // pAdvertising->addServiceUUID(SERVICE_UUID);
   // pAdvertising->start();
   // Serial.println("Đang quảng bá BLE, chờ Node-RED kết nối...");
-
+*/
 //WiFi setup
   WiFi.mode(WIFI_STA);
   WiFi.begin(ssid, password);
@@ -112,10 +115,18 @@ void loop(){
     reconnect();
   }
   client.loop();
+  if (Serial.available()) {
+  char cmd = Serial.read();
+  handleCommandMotor(cmd);
+  handleCommandServo(cmd);
+}
+
+  /*
   //Receive data from UART
 //   if (Serial1.available()){
 //     char cmd = Serial1.read();
 //     handleCommandMotor(cmd);
 //     handleCommandServo(cmd);
 //   }
+*/
 }
